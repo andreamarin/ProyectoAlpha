@@ -3,9 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/sdist.ITAM/Documents/ProyectoAlpha/ProyectoAlpha/src/server/GameServer.java</file>
-            <file>file:/C:/Users/sdist.ITAM/Documents/ProyectoAlpha/ProyectoAlpha/src/client/GameClient.java</file>
-            <file>file:/C:/Users/sdist.ITAM/Documents/ProyectoAlpha/ProyectoAlpha/src/server/MulticastConnection.java</file>
+            <file>file:/Users/andreamarin/Desktop/ITAM/8semestre/ProyectosSD/ProyectoAlpha/src/client/GameClient.java</file>
+            <file>file:/Users/andreamarin/Desktop/ITAM/8semestre/ProyectosSD/ProyectoAlpha/src/client/GameGUI.java</file>
+            <file>file:/Users/andreamarin/Desktop/ITAM/8semestre/ProyectosSD/ProyectoAlpha/src/client/Login.java</file>
         </group>
     </open-files>
 </project-private>

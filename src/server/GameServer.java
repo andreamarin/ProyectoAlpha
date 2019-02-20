@@ -16,6 +16,8 @@ import java.util.logging.Logger;
  */
 public class GameServer {
     public static void main(String[] args) throws IOException{
+        System.setProperty("java.net.preferIPv4Stack", "true");
+
         // multicast
         int multPort = 6789;
         String multIP = "228.5.6.7";
