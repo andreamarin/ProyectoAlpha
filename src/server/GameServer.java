@@ -5,8 +5,10 @@
  */
 package server;
 
+import interfaces.Player;
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,21 +17,74 @@ import java.util.logging.Logger;
  * @author AMARINA
  */
 public class GameServer {
-    public static void main(String[] args) throws IOException{
+    private static GameBoard board;
+    
+    // multicast settings
+    private static int multPort = 6789;
+    private static MulticastSocket s;
+    private static InetAddress group;
+    
+    public static void main(String[] args){
+        System.setProperty("java.net.preferIPv4Stack", "true");
+        
+        board  = new GameBoard();
+        
         // multicast
-        int multPort = 6789;
         String multIP = "228.5.6.7";
-     
+        
+        // multicast connection
+        try {
+            s = new MulticastSocket(multPort);
+            group = InetAddress.getByName(multIP);
+            s.joinGroup(group); 
+        } catch (IOException ex) {
+            Logger.getLogger(GameServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         //tcp 
-        ServerSocket tcpSocket;
-        Socket clientSocket;
         int tcpPort = 6780;
         
-        MulticastConnection mCon = new MulticastConnection(multIP, multPort);
-        mCon.start();
+        // start thread
+        TcpConnection tcpCon = new TcpConnection(tcpPort, board);
+        tcpCon.start();
         
-        // TCP setting
-        //tcpSocket = new ServerSocket(tcpPort);
-        //clientSocket = tcpSocket.accept();
+        int x, y, s;
+        int ronda;
+        while(true){
+            
+            if(board.isFin()){ 
+                sendMsg("Ganó: "+board.getGanador().getId());
+                board.clearGame();
+            }else{
+                x = 1 + (int) (Math.random() * 5);
+                y = 1 + (int) (Math.random() * 4);
+                
+                ronda = board.newRound();
+                
+                sendMsg(x+","+y+","+ronda);
+                System.out.println(x+","+y+","+ronda);
+                
+                // timeout
+                s = 0;
+                while(s < 20 && ronda == board.getNumRonda()){
+                    try {
+                        s++;
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(GameServer.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        }
+    }
+    
+    public static void sendMsg(String msj){
+        try {
+            byte [] m = msj.getBytes();
+            DatagramPacket messageOut = new DatagramPacket(m, m.length, group, multPort);
+            s.send(messageOut);
+        } catch (IOException ex) {
+            Logger.getLogger(GameServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

@@ -9,72 +9,88 @@ import java.io.*;
 import java.net.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 
 /**
  *
  * @author AMARINA
  */
 public class GameClient {
+    GameGUI gui;
     
-    public static void main(String[] args){
-        // multicast settings
-        MulticastSocket multSocket = null;
-        int multPort = 6789;
-        String ip = "228.5.6.7";
-        
-        // tcp settings
-        Socket tcpSocket;
-        int tcpPort = 6789;
-        String tcpIP = "localhost";
-        
+    // multicast settings
+    private MulticastSocket multSocket;
+    int  multPort;
+    InetAddress group;
+    
+    // tcp settings
+    Socket tcpSocket;
+    int tcpPort;
+    String tcpIP;
+    DataOutputStream out;
+    
+    public GameClient(){
+        multSocket = null;
+        tcpSocket = null;
+    }
+    
+    public void setFrame(GameGUI frame){
+        this.gui = frame;
+    }
+    
+    public boolean empezar(String ip, int multPort){
         try {
-            // multicast connection
-            InetAddress group = InetAddress.getByName(ip); 
-            multSocket = new MulticastSocket(multPort);
+            //multicast connection
+            this.multPort = multPort;
+            this.group = InetAddress.getByName(ip);
+            this.multSocket = new MulticastSocket(multPort);
             multSocket.joinGroup(group);
             
-            // tcp connection
-            //tcpSocket = new  Socket(tcpIP, tcpPort);
-            //DataOutputStream out = new DataOutputStream(tcpSocket.getOutputStream());
+            //tcp connection
+            this.tcpSocket = new  Socket(tcpIP, tcpPort);
+            this.out = new DataOutputStream(tcpSocket.getOutputStream());
             
-            byte [] buffer;
-            DatagramPacket mole; 
-            
+            return true;
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(GameClient.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
+            return false;
+        } catch (IOException ex) {
+            Logger.getLogger(GameClient.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
+            return false;
+        }
+    }
+    
+    public void juega(){
+        byte[] buffer;
+        DatagramPacket mole;
+        
+        try {
             while(true){
                 buffer = new byte[1000];
                 mole = new DatagramPacket(buffer, buffer.length);
                 System.out.println("Esperando mensajes");
                 multSocket.receive(mole);
-                multSocket.leaveGroup(group);
-                escribe(new String(mole.getData()));//, out);
+                escribe(new String(mole.getData(), 0, mole.getLength()));
             }
-            
-        } catch (UnknownHostException ex) {
+        } catch (IOException ex) {
             Logger.getLogger(GameClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    public void escribe(String pos){
+        System.out.println("La posicion es: "+pos);
+        responde();
+    }
+    
+    public void responde(){
+        System.out.println("Respuesta");
+        try {
+            out.writeUTF("Le pegué");
         } catch (IOException ex) {
             Logger.getLogger(GameClient.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public static void escribe(String pos){//, DataOutputStream out){
-        System.out.println("La posicion es: "+pos);
-        responde();//out);
-    }
-    
-    public static void responde(){//DataOutputStream out){
-        System.out.println("Respuesta");
-        /*try {
-            out.writeUTF("Le pegué");
-        } catch (IOException ex) {
-            Logger.getLogger(GameClient.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-    }
 }
-
-/* RECEIVE MULTICAST 
-    byte[] buffer = new byte[1000];
-    System.out.println("Waiting for messages");
-
-    DatagramPacket messageIn = new DatagramPacket(buffer, buffer.length);
-    s.receive(messageIn);
-*/
