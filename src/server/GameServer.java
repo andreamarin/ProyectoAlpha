@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 package server;
-
-import interfaces.Player;
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
@@ -56,8 +54,8 @@ public class GameServer {
                 sendMsg("Ganó: "+board.getGanador().getId());
                 board.clearGame();
             }else{
-                x = 1 + (int) (Math.random() * 5);
-                y = 1 + (int) (Math.random() * 4);
+                x = 1 + (int) (Math.random() * 4);
+                y = 1 + (int) (Math.random() * 5);
                 
                 ronda = board.newRound();
                 
@@ -66,7 +64,7 @@ public class GameServer {
                 
                 // timeout
                 s = 0;
-                while(s < 20 && ronda == board.getNumRonda()){
+                while(s < 5 && ronda == board.getNumRonda()){
                     try {
                         s++;
                         Thread.sleep(1000);

@@ -3,28 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package client;
-
+package server;
 /**
  *
  * @author andreamarin
  */
-public class ClientTester {
+public class Prueba {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.setProperty("java.net.preferIPv4Stack", "true");
+        Player p1 = new Player("p1");
+        Player p2 = new Player("p2");
+        Player p3 = new Player("p1");
         
-        GameClient client = new GameClient();
-        /*
-        if (client.empezar("228.5.6.7", 6789)){
-            client.juega();
-        }else{
-            System.out.println("Error de conexión");
-        }
-                */
+        System.out.println(p1.equals(p2));
+        System.out.println(p1.equals(p3));
     }
     
 }
