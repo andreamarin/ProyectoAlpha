@@ -10,13 +10,15 @@ import java.net.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author AMARINA
  */
-public class GameClient {
+public class GameClient extends Thread{
     GameGUI gui;
+    private final String ID = "p1";
     
     // multicast settings
     private MulticastSocket multSocket;
@@ -25,20 +27,24 @@ public class GameClient {
     
     // tcp settings
     Socket tcpSocket;
-    int tcpPort;
-    String tcpIP;
     DataOutputStream out;
+    
+    private int round;
+    private String pos;
     
     public GameClient(){
         multSocket = null;
         tcpSocket = null;
+        
+        round = 0;
+        pos = "m11";
     }
     
     public void setFrame(GameGUI frame){
         this.gui = frame;
     }
     
-    public boolean empezar(String ip, int multPort){
+    public boolean conectar(String ip, int multPort, String tcpIP, int tcpPort){
         try {
             //multicast connection
             this.multPort = multPort;
@@ -62,7 +68,7 @@ public class GameClient {
         }
     }
     
-    public void juega(){
+    public void run(){
         byte[] buffer;
         DatagramPacket mole;
         
@@ -72,7 +78,7 @@ public class GameClient {
                 mole = new DatagramPacket(buffer, buffer.length);
                 System.out.println("Esperando mensajes");
                 multSocket.receive(mole);
-                escribe(new String(mole.getData(), 0, mole.getLength()));
+                escribeGUI(new String(mole.getData(), 0, mole.getLength()));
             }
         } catch (IOException ex) {
             Logger.getLogger(GameClient.class.getName()).log(Level.SEVERE, null, ex);
@@ -80,15 +86,30 @@ public class GameClient {
         
     }
     
-    public void escribe(String pos){
-        System.out.println("La posicion es: "+pos);
-        responde();
+    public void escribeGUI(String mole){
+        String[] resp = mole.split(",");
+        String newPos;
+        
+        System.out.println("Recibí: "+mole);
+        
+        if(resp.length == 1){
+            gui.ganador(mole);
+        }else{
+            newPos = "m"+resp[0]+""+resp[1];
+            round = Integer.parseInt(resp[2]);
+            
+            gui.removeMole(pos);
+            gui.setMole(newPos);
+            pos = newPos;
+        }
     }
     
     public void responde(){
         System.out.println("Respuesta");
+        
         try {
-            out.writeUTF("Le pegué");
+            out.writeUTF(ID);
+            out.writeInt(round);
         } catch (IOException ex) {
             Logger.getLogger(GameClient.class.getName()).log(Level.SEVERE, null, ex);
         }

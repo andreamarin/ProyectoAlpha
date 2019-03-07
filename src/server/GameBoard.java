@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package server;
-import interfaces.Player;
 import java.util.ArrayList;
 
 /**
@@ -16,6 +15,7 @@ public class GameBoard {
     private boolean fin;
     private Player ganador;
     private ArrayList<Player> players;
+    private final int MAX_HITS = 3;
     
     public GameBoard(){
         numRonda = 0;
@@ -49,7 +49,6 @@ public class GameBoard {
         return ganador;
     }
     
-    
     // CLASS METHODS
     
     public int newRound() {
@@ -64,4 +63,26 @@ public class GameBoard {
         fin = false;
         ganador = null;
     }
+    
+    public synchronized boolean increaseScore(String id){
+        int index = players.indexOf(new Player(id));
+        int newHits;
+        boolean res;
+        
+        if(index != -1 && !fin){
+            newHits = players.get(index).increaseHits();
+            
+            if(newHits == MAX_HITS){ // player has won!
+                ganador = players.get(index);
+                fin = true;
+            }
+            
+            res = true;
+        }else{
+            res = false;
+        }
+        
+        return res;
+    }
+    
 }

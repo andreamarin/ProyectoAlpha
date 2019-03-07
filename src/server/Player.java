@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package interfaces;
+package server;
 
 import java.io.Serializable;
 
@@ -24,8 +24,10 @@ public class Player implements Serializable{
         this.hits = hits;
     }
     
-    public void increaseHits(){
+    public int increaseHits(){
         hits++;
+        
+        return hits;
     }
     
     public void resetHits(){
@@ -39,4 +41,10 @@ public class Player implements Serializable{
     public String getId(){
         return id;
     }
+    
+    @Override 
+    public boolean equals(Object o){
+       return o.getClass() == this.getClass() && ((Player)o).getId().equals(this.id);
+    }
 }
+

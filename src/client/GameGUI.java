@@ -12,18 +12,24 @@ import javax.swing.*;
 public class GameGUI extends javax.swing.JFrame {
     private GameClient game;
     private Map panelNames; 
+    private Color moleColor;
+    private Color neutralColor;
     
     public GameGUI() {
         game = new GameClient();
         game.setFrame(this);
         panelNames = new HashMap<String, JPanel>();
         
+        moleColor = new Color(180, 40, 121);
+        neutralColor = new Color(174, 227, 196);
+        
         initComponents();
         fillMap();
     }
     
-    public void setGame(GameClient client){
-        this.game = client;
+    public void beginGame(){
+        game.conectar("228.5.6.7", 6789, "localhost", 6780);
+        game.start();
     }
     
     public void fillMap(){
@@ -49,8 +55,23 @@ public class GameGUI extends javax.swing.JFrame {
         panelNames.put("m45", m45);
     }
     
-    public void changeColor(String pos){
-       ((JPanel) panelNames.get(pos)).setBackground(Color.red);
+    public void setMole(String pos){
+       ((JPanel) panelNames.get(pos)).setBackground(moleColor);
+    }
+    
+    public void removeMole(String pos){
+       ((JPanel) panelNames.get(pos)).setBackground(neutralColor);
+    }
+    
+    public void ganador(String msg){
+        JOptionPane.showMessageDialog(this, msg);
+    }
+    
+    public void responde(String id){
+        if(((JPanel)panelNames.get(id)).getBackground() == moleColor)
+            game.responde();
+        else
+            JOptionPane.showMessageDialog(this, "La cagaste");
     }
 
     @SuppressWarnings("unchecked")
@@ -89,6 +110,11 @@ public class GameGUI extends javax.swing.JFrame {
 
         m11.setBackground(new java.awt.Color(219, 240, 255));
         m11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51), 2));
+        m11.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                m11MouseDragged(evt);
+            }
+        });
         m11.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 m11MouseClicked(evt);
@@ -610,89 +636,87 @@ public class GameGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void m11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_m11MouseClicked
-        m11.setBackground(Color.red);
+        responde("m11");
     }//GEN-LAST:event_m11MouseClicked
 
     private void m12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_m12MouseClicked
-        // TODO add your handling code here:
+        responde("m12");
     }//GEN-LAST:event_m12MouseClicked
 
     private void m13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_m13MouseClicked
-        // TODO add your handling code here:
+        responde("m13");
     }//GEN-LAST:event_m13MouseClicked
 
     private void m14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_m14MouseClicked
-        // TODO add your handling code here:
+        responde("m14");
     }//GEN-LAST:event_m14MouseClicked
 
     private void m15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_m15MouseClicked
-        // TODO add your handling code here:
+        responde("m15");
     }//GEN-LAST:event_m15MouseClicked
 
     private void m24MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_m24MouseClicked
-        // TODO add your handling code here:
+        responde("m24");
     }//GEN-LAST:event_m24MouseClicked
 
     private void m21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_m21MouseClicked
-        // TODO add your handling code here:
+        responde("m21");
     }//GEN-LAST:event_m21MouseClicked
 
     private void m25MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_m25MouseClicked
-        // TODO add your handling code here:
+        responde("m25");
     }//GEN-LAST:event_m25MouseClicked
 
     private void m22MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_m22MouseClicked
-        // TODO add your handling code here:
+        responde("m22");
     }//GEN-LAST:event_m22MouseClicked
 
     private void m23MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_m23MouseClicked
-        // TODO add your handling code here:
+        responde("m23");
     }//GEN-LAST:event_m23MouseClicked
 
     private void m34MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_m34MouseClicked
-        // TODO add your handling code here:
+        responde("m34");
     }//GEN-LAST:event_m34MouseClicked
 
     private void m31MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_m31MouseClicked
-        // TODO add your handling code here:
+        responde("m31");
     }//GEN-LAST:event_m31MouseClicked
 
     private void m35MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_m35MouseClicked
-        // TODO add your handling code here:
+        responde("m35");
     }//GEN-LAST:event_m35MouseClicked
 
     private void m32MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_m32MouseClicked
-        // TODO add your handling code here:
+        responde("m32");
     }//GEN-LAST:event_m32MouseClicked
 
     private void m33MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_m33MouseClicked
-        // TODO add your handling code here:
+        responde("m33");
     }//GEN-LAST:event_m33MouseClicked
 
     private void m44MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_m44MouseClicked
-        // TODO add your handling code here:
+        responde("m44");
     }//GEN-LAST:event_m44MouseClicked
 
     private void m45MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_m45MouseClicked
-        // TODO add your handling code here:
+        responde("m45");
     }//GEN-LAST:event_m45MouseClicked
 
     private void m41MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_m41MouseClicked
-        // TODO add your handling code here:
+        responde("m41");
     }//GEN-LAST:event_m41MouseClicked
 
     private void m43MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_m43MouseClicked
-        // TODO add your handling code here:
+        responde("m43");
     }//GEN-LAST:event_m43MouseClicked
 
     private void m42MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_m42MouseClicked
-        // TODO add your handling code here:
+        responde("m42");
     }//GEN-LAST:event_m42MouseClicked
 
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
-        //this.setVisible(false);
-        game.escribe("12");
-        //this.dispose();
+        
     }//GEN-LAST:event_salirActionPerformed
 
     private void empezarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empezarActionPerformed
@@ -701,10 +725,16 @@ public class GameGUI extends javax.swing.JFrame {
         log.setClient(game);
     }//GEN-LAST:event_empezarActionPerformed
 
+    private void m11MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_m11MouseDragged
+        
+    }//GEN-LAST:event_m11MouseDragged
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        System.setProperty("java.net.preferIPv4Stack", "true");
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -731,7 +761,10 @@ public class GameGUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GameGUI().setVisible(true);
+                GameGUI gui = new GameGUI();
+                gui.setVisible(true);
+                gui.beginGame();
+                
             }
         });
     }
