@@ -42,6 +42,8 @@ public class TcpConnection extends Thread{
                 
                 System.out.println("Waiting for clients...");
                 clientSocket = tcpSocket.accept(); 
+                System.out.println(clientSocket.getRemoteSocketAddress());
+                System.out.println(clientSocket.getLocalSocketAddress());
                 ScoreManager sm = new ScoreManager(clientSocket, board);
                 sm.start();
             }

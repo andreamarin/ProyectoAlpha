@@ -17,17 +17,17 @@ import javax.swing.JOptionPane;
  * @author AMARINA
  */
 public class GameClient extends Thread{
-    GameGUI gui;
-    private final String ID = "p1";
+    private GameGUI gui;
+    private String ID;
     
     // multicast settings
     private MulticastSocket multSocket;
-    int  multPort;
-    InetAddress group;
+    private int  multPort;
+    private InetAddress group;
     
     // tcp settings
-    Socket tcpSocket;
-    DataOutputStream out;
+    private Socket tcpSocket;
+    private DataOutputStream out;
     
     private int round;
     private String pos;
@@ -44,8 +44,10 @@ public class GameClient extends Thread{
         this.gui = frame;
     }
     
-    public boolean conectar(String ip, int multPort, String tcpIP, int tcpPort){
+    public boolean conectar(String ip, int multPort, String tcpIP, int tcpPort, String playerID){
         try {
+            this.ID = playerID;
+            
             //multicast connection
             this.multPort = multPort;
             this.group = InetAddress.getByName(ip);

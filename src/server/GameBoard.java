@@ -64,6 +64,31 @@ public class GameBoard {
         ganador = null;
     }
     
+    public Player getPlayer(String id){
+        int index =  players.indexOf(new Player(id));
+        Player res = null;
+        if(index != -1)
+            res = players.get(index);
+        return res;
+    }
+    
+    public Player addPlayer(String id){
+        Player newPlayer = new Player(id);
+        newPlayer.setLogged(true);
+        players.add(newPlayer);
+        return newPlayer;
+    }
+    
+    public void logPlayer(String id){
+        int index = players.indexOf(new Player(id));
+        players.get(index).setLogged(true);
+    }
+    
+    public void logoutPlayer(String id){
+        int index = players.indexOf(new Player(id));
+        players.get(index).setLogged(false);
+    }
+    
     public synchronized boolean increaseScore(String id){
         int index = players.indexOf(new Player(id));
         int newHits;
