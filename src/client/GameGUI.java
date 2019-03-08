@@ -21,14 +21,15 @@ public class GameGUI extends javax.swing.JFrame {
         panelNames = new HashMap<String, JPanel>();
         
         moleColor = new Color(180, 40, 121);
-        neutralColor = new Color(174, 227, 196);
+        neutralColor = new Color(219,240,255);
         
         initComponents();
         fillMap();
     }
     
-    public void beginGame(){
-        game.conectar("228.5.6.7", 6789, "localhost", 6780);
+    public void beginGame(String multIP, int multPort, String tcpIP, int tcpPort, String playerID){
+        nombre.setText(playerID);
+        game.conectar(multIP, multPort, tcpIP, tcpPort, playerID);
         game.start();
     }
     
@@ -103,7 +104,6 @@ public class GameGUI extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         score = new javax.swing.JLabel();
         salir = new javax.swing.JButton();
-        empezar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 153, 153));
@@ -512,13 +512,6 @@ public class GameGUI extends javax.swing.JFrame {
             }
         });
 
-        empezar.setText("Conectarse");
-        empezar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                empezarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -575,13 +568,12 @@ public class GameGUI extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(m15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(salir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(salir, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(score))
-                            .addComponent(empezar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(score)))
                         .addGap(61, 61, 61))))
         );
         layout.setVerticalGroup(
@@ -625,9 +617,7 @@ public class GameGUI extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(score))
-                        .addGap(51, 51, 51)
-                        .addComponent(empezar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(106, 106, 106)
                         .addComponent(salir, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
@@ -719,12 +709,6 @@ public class GameGUI extends javax.swing.JFrame {
         
     }//GEN-LAST:event_salirActionPerformed
 
-    private void empezarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empezarActionPerformed
-        Login log = new Login();
-        log.setVisible(true);
-        log.setClient(game);
-    }//GEN-LAST:event_empezarActionPerformed
-
     private void m11MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_m11MouseDragged
         
     }//GEN-LAST:event_m11MouseDragged
@@ -761,16 +745,12 @@ public class GameGUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                GameGUI gui = new GameGUI();
-                gui.setVisible(true);
-                gui.beginGame();
-                
+                new GameGUI().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton empezar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel m11;

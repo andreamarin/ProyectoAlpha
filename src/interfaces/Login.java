@@ -3,18 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package server;
+package interfaces;
+
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+
 /**
  *
  * @author andreamarin
  */
-public class Prueba {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        System.out.println(System.getProperty("user.dir"));
-    }
-    
+public interface Login extends Remote{
+    public Connection conecta(String username) throws RemoteException;
 }

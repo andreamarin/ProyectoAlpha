@@ -14,6 +14,7 @@ import java.io.Serializable;
 public class Player implements Serializable{
     private String id;
     private int hits;
+    private boolean logged;
     
     public Player(String id){
         this.id = id;
@@ -41,10 +42,20 @@ public class Player implements Serializable{
     public String getId(){
         return id;
     }
+
+    public boolean isLogged() {
+        return logged;
+    }
+
+    public void setLogged(boolean logged) {
+        this.logged = logged;
+    }
     
     @Override 
     public boolean equals(Object o){
        return o.getClass() == this.getClass() && ((Player)o).getId().equals(this.id);
     }
+    
+    
 }
 
