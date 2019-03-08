@@ -23,13 +23,15 @@ public class GameBoard {
         ganador = null;
         players = new ArrayList<>();
         
-        initPlayers();
     }
     
-   private void initPlayers(){
-       players.add(new Player("p1"));
-       players.add(new Player("p2"));
-   }
+    public void printPlayers(){
+        System.out.println("============================");
+        for (Player player : players) {
+            System.out.println(player.getId());
+        }
+        System.out.println("============================");
+    }
     
     // GETTERS AND SETTERS
     
@@ -67,16 +69,20 @@ public class GameBoard {
     public Player getPlayer(String id){
         int index =  players.indexOf(new Player(id));
         Player res = null;
+        System.out.println("GET PLAYER: "+index);
         if(index != -1)
             res = players.get(index);
+        
         return res;
     }
     
     public Player addPlayer(String id){
-        Player newPlayer = new Player(id);
-        newPlayer.setLogged(true);
-        players.add(newPlayer);
-        return newPlayer;
+        Player p = new Player(id);
+        p.setLogged(true);
+        
+        players.add(p);
+        System.out.println("ADD PLAYER: "+p);
+        return p;
     }
     
     public void logPlayer(String id){

@@ -44,13 +44,13 @@ public class GameClient extends Thread{
         this.gui = frame;
     }
     
-    public boolean conectar(String ip, int multPort, String tcpIP, int tcpPort, String playerID){
+    public boolean conectar(String multIP, int multPort, String tcpIP, int tcpPort, String playerID){
         try {
             this.ID = playerID;
             
             //multicast connection
             this.multPort = multPort;
-            this.group = InetAddress.getByName(ip);
+            this.group = InetAddress.getByName(multIP);
             this.multSocket = new MulticastSocket(multPort);
             multSocket.joinGroup(group);
             
@@ -74,14 +74,30 @@ public class GameClient extends Thread{
         byte[] buffer;
         DatagramPacket mole;
         
-        try {
-            while(true){
+        while(true){
+            try{
                 buffer = new byte[1000];
                 mole = new DatagramPacket(buffer, buffer.length);
                 System.out.println("Esperando mensajes");
                 multSocket.receive(mole);
                 escribeGUI(new String(mole.getData(), 0, mole.getLength()));
+            }catch(SocketException ex){
+              System.out.println("Fin.");
+              break;
+            }catch (IOException ex) {
+                Logger.getLogger(GameClient.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+        
+    }
+    
+    public void close(){
+        try {
+            multSocket.leaveGroup(group);
+            multSocket.close();
+            out.writeUTF(ID);
+            out.writeInt(-1);
+            tcpSocket.close();
         } catch (IOException ex) {
             Logger.getLogger(GameClient.class.getName()).log(Level.SEVERE, null, ex);
         }

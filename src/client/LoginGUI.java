@@ -151,7 +151,8 @@ public class LoginGUI extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(LoginGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        System.setProperty("java.net.preferIPv4Stack", "true");
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -160,7 +161,7 @@ public class LoginGUI extends javax.swing.JFrame {
         });
         
         String path = System.getProperty("user.dir") + "/src/client/client.policy";
-        System.setProperty("java.security.policy","file:/C:"+path);
+        System.setProperty("java.security.policy","file:"+path);
 
         if (System.getSecurityManager() == null) {
             System.setSecurityManager(new SecurityManager());

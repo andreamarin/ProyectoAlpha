@@ -31,6 +31,8 @@ public class LoginServer implements Login{
     
     @Override
     public Connection conecta(String username) throws RemoteException {
+        board.printPlayers();
+        
         Player p = board.getPlayer(username);
         
         if (p == null){
@@ -41,7 +43,7 @@ public class LoginServer implements Login{
             board.logPlayer(username);
         }
         
-        String id = (p==null) ? p.getId() : null;
+        String id = (p==null) ? null : p.getId();
         
         return new Connection(id, multIP, multPort, tcpIP, tcpPort);
     }

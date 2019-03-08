@@ -706,7 +706,7 @@ public class GameGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_m42MouseClicked
 
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
-        
+        game.close();
     }//GEN-LAST:event_salirActionPerformed
 
     private void m11MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_m11MouseDragged

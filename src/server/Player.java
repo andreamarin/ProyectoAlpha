@@ -18,6 +18,7 @@ public class Player implements Serializable{
     
     public Player(String id){
         this.id = id;
+        logged = false;
     }
     
     public Player(String id, int hits){

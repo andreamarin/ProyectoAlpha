@@ -32,9 +32,12 @@ public class GameServer {
             System.setProperty("java.net.preferIPv4Stack", "true");
             
             board  = new GameBoard();
+            board.addPlayer("p1");
+            board.addPlayer("p2");
+            
             
             // multicast
-            String multIP = "228.5.6.7";
+            String multIP = "228.6.6.6";
             
             // multicast connection
             try {
@@ -51,7 +54,8 @@ public class GameServer {
             
             //launch RMI service
             String path = System.getProperty("user.dir") + "/src/server/server.policy";
-            System.setProperty("java.security.policy","file:/C:"+path);
+            System.out.println(path);
+            System.setProperty("java.security.policy","file:"+path);
             
             if (System.getSecurityManager() == null) {
                 System.setSecurityManager(new SecurityManager());
@@ -88,7 +92,7 @@ public class GameServer {
                     
                     // timeout
                     s = 0;
-                    while(s < 5 && ronda == board.getNumRonda()){
+                    while(s < 3 && ronda == board.getNumRonda()){
                         try {
                             s++;
                             Thread.sleep(1000);
