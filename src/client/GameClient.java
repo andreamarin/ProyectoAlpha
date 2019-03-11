@@ -28,6 +28,8 @@ public class GameClient extends Thread{
     // tcp settings
     private Socket tcpSocket;
     private DataOutputStream out;
+    private String tcpIP;
+    private int tcpPort;
     
     private int round;
     private String pos;
@@ -47,6 +49,8 @@ public class GameClient extends Thread{
     public boolean conectar(String multIP, int multPort, String tcpIP, int tcpPort, String playerID){
         try {
             this.ID = playerID;
+            this.tcpIP = tcpIP;
+            this.tcpPort = tcpPort;
             
             //multicast connection
             this.multPort = multPort;
@@ -54,9 +58,9 @@ public class GameClient extends Thread{
             this.multSocket = new MulticastSocket(multPort);
             multSocket.joinGroup(group);
             
-            //tcp connection
-            this.tcpSocket = new  Socket(tcpIP, tcpPort);
-            this.out = new DataOutputStream(tcpSocket.getOutputStream());
+            /*
+            
+            */
             
             return true;
         } catch (UnknownHostException ex) {
@@ -95,6 +99,10 @@ public class GameClient extends Thread{
         try {
             multSocket.leaveGroup(group);
             multSocket.close();
+            
+            //tcp connection
+            this.tcpSocket = new  Socket(tcpIP, tcpPort);
+            this.out = new DataOutputStream(tcpSocket.getOutputStream());
             out.writeUTF(ID);
             out.writeInt(-1);
             tcpSocket.close();
@@ -126,10 +134,21 @@ public class GameClient extends Thread{
         System.out.println("Respuesta");
         
         try {
+            //tcp connection
+            this.tcpSocket = new  Socket(tcpIP, tcpPort);
+            this.out = new DataOutputStream(tcpSocket.getOutputStream());
+            
             out.writeUTF(ID);
             out.writeInt(round);
+            
         } catch (IOException ex) {
             Logger.getLogger(GameClient.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                this.tcpSocket.close();
+            } catch (IOException ex) {
+                Logger.getLogger(GameClient.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }

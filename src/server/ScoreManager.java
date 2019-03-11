@@ -33,38 +33,39 @@ public class ScoreManager extends Thread{
     @Override
     public void run(){
         try {
-            String playerID;
+            String playerID = "";
             int round;
             boolean resp;
             
-            while(true){
-                try {
-                    playerID = in.readUTF();
-                    round = in.readInt();
-                    
-                    System.out.println("=========================================");
-                    System.out.println("ID:"+playerID);
-                    System.out.println("Round: "+round);
-                    System.out.println("=========================================");
-                    
-                    
-                    if(round == -1){
-                        break;
-                    }
-                    
-                    if(round == board.getNumRonda()){
-                        resp = board.increaseScore(playerID);
-                        
-                        if(resp)
-                            board.newRound();
-                    }
-                    
-                } catch (IOException ex) {
-                    Logger.getLogger(ScoreManager.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                playerID = in.readUTF();
+                round = in.readInt();
+
+                System.out.println("=========================================");
+                System.out.println("ID:"+playerID);
+                System.out.println("Round: "+round);
+                
+                
+
+                if(round == -1){
+                    board.logoutPlayer(playerID);
                 }
+
+                if(round == board.getNumRonda()){
+                    resp = board.increaseScore(playerID);
+
+                    if(resp)
+                        board.newRound();
+                }
+                //board.printBoard();
+                System.out.println("=========================================");
+                
+            } catch (IOException ex) {
+                Logger.getLogger(ScoreManager.class.getName()).log(Level.SEVERE, null, ex);
+            }finally{
+                client.close();
             }
-            board.logoutPlayer(playerID);
-            client.close();
+            
         } catch (IOException ex) {
             Logger.getLogger(ScoreManager.class.getName()).log(Level.SEVERE, null, ex);
         }

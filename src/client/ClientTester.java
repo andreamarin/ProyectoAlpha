@@ -17,14 +17,7 @@ public class ClientTester {
     public static void main(String[] args) {
         System.setProperty("java.net.preferIPv4Stack", "true");
         
-        GameClient client = new GameClient();
-        /*
-        if (client.empezar("228.5.6.7", 6789)){
-            client.juega();
-        }else{
-            System.out.println("Error de conexión");
-        }
-                */
+        
     }
     
 }
