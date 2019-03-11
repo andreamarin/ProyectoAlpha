@@ -54,7 +54,6 @@ public class GameServer {
             
             //launch RMI service
             String path = System.getProperty("user.dir") + "/src/server/server.policy";
-            System.out.println(path);
             System.setProperty("java.security.policy","file:"+path);
             
             if (System.getSecurityManager() == null) {
@@ -95,7 +94,7 @@ public class GameServer {
                     while(s < 3 && ronda == board.getNumRonda()){
                         try {
                             s++;
-                            Thread.sleep(1000);
+                            Thread.sleep(500);
                         } catch (InterruptedException ex) {
                             Logger.getLogger(GameServer.class.getName()).log(Level.SEVERE, null, ex);
                         }

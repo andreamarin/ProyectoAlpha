@@ -31,7 +31,7 @@ public class LoginServer implements Login{
     
     @Override
     public Connection conecta(String username) throws RemoteException {
-        board.printPlayers();
+        //board.printPlayers();
         
         Player p = board.getPlayer(username);
         

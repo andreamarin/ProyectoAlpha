@@ -66,10 +66,18 @@ public class GameBoard {
         ganador = null;
     }
     
+    public void printBoard(){
+        System.out.println("***********************************************");
+        for (Player player : players) {
+            System.out.println(player.getId()+": "+player.getHits());
+        }
+        System.out.println("***********************************************");
+
+    }
+    
     public Player getPlayer(String id){
         int index =  players.indexOf(new Player(id));
         Player res = null;
-        System.out.println("GET PLAYER: "+index);
         if(index != -1)
             res = players.get(index);
         
@@ -81,7 +89,6 @@ public class GameBoard {
         p.setLogged(true);
         
         players.add(p);
-        System.out.println("ADD PLAYER: "+p);
         return p;
     }
     
