@@ -8,7 +8,9 @@ package tester;
 import interfaces.Connection;
 import interfaces.Login;
 import java.io.DataOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
@@ -88,20 +90,40 @@ public class TestClient extends Thread{
     
     @Override
     public void run(){
+        PrintWriter writerAvg = null;
+        PrintWriter writerStdDev = null;
+        
         try {
             byte[] buffer;
             DatagramPacket mole;
             double p;
             String[] res;
+            long UDPTime;
+            long TCPTime;
+            double avg;
+            double stdDev;
+            
+            writerAvg = new PrintWriter(new FileWriter("PromediosUDP.csv",true));
+            writerStdDev = new PrintWriter(new FileWriter("DesviacionesUDP.csv",true));
+            
+            long[] UDPTimes = new long[roundLimit];
+            
             for (int i = 0; i < roundLimit; i++) {
                 buffer = new byte[1000];
                 mole = new DatagramPacket(buffer, buffer.length);
                 //System.out.println("Esperando mensajes");
                 multSocket.receive(mole);
                 
-                Thread.sleep(sleep);
+                //Thread.sleep(sleep);
                 
                 res = (new String(mole.getData(), 0, mole.getLength())).split(",");
+                
+                long OGTime = Long.parseLong(res[3]);
+                
+                UDPTime = System.currentTimeMillis() - OGTime;
+                
+                UDPTimes[i] = UDPTime;
+                
                 
                 if(res.length == 1){
                     continue;
@@ -115,11 +137,16 @@ public class TestClient extends Thread{
                     round = Integer.parseInt(res[2]);
                 }
                 
+                TCPTime = System.currentTimeMillis();
+                
                 this.tcpSocket = new  Socket(tcpIP, tcpPort);
                 this.out = new DataOutputStream(tcpSocket.getOutputStream());
                 
                 out.writeUTF(playerID);
                 out.writeInt(round);
+                out.writeLong(TCPTime);
+                out.writeLong(OGTime);
+                
                 
                 this.tcpSocket.close();
                 
@@ -133,12 +160,41 @@ public class TestClient extends Thread{
             this.out = new DataOutputStream(tcpSocket.getOutputStream());
             out.writeUTF(playerID);
             out.writeInt(-1);
+            out.writeLong(-1);
+            out.writeLong(-1);
             tcpSocket.close();
+            
+            avg = prom(UDPTimes);
+            stdDev = stdDev(UDPTimes,avg);
+            
+            writerAvg.println(avg);
+            writerStdDev.println(stdDev);
+            
+            
         } catch (IOException ex) {
             Logger.getLogger(TestClient.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(TestClient.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            writerAvg.close();
+            writerStdDev.close();
         }  
+    }
+    
+    private double prom(long[] list){
+        double res = 0;
+        for (int i = 0; i < list.length; i++) {
+            res += list[i];
+        }
+        return res/list.length;
+    }
+    
+    private double stdDev(long[] list, double prom){
+        double res = 0;
+        
+        for (long l : list) {
+            res += Math.pow(l-prom, 2);
+        }
+        
+        return Math.sqrt(res/list.length);
     }
     
 }

@@ -75,19 +75,25 @@ public class GameServer {
             
             int x, y, s;
             int ronda;
+            
+            long time;
+            
             while(true){
                 
                 if(board.isFin()){
                     sendMsg("Ganó: "+board.getGanador().getId());
                     board.clearGame();
                 }else{
+                    
+                    time = System.currentTimeMillis();
+                    
                     x = 1 + (int) (Math.random() * 4);
                     y = 1 + (int) (Math.random() * 5);
                     
                     ronda = board.newRound();
                     
-                    sendMsg(x+","+y+","+ronda);
-                    System.out.println(x+","+y+","+ronda);
+                    sendMsg(x+","+y+","+ronda + "," +time);
+                    System.out.println(x+","+y+","+ronda+","+time);
                     
                     // timeout
                     s = 0;

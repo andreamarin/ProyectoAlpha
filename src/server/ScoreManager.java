@@ -6,7 +6,9 @@
 package server;
 
 import java.io.DataInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,11 +38,23 @@ public class ScoreManager extends Thread{
             String playerID = "";
             int round;
             boolean resp;
+            long TCPTime;
+            long RoundTime;
+            
+            PrintWriter writerTCP = new PrintWriter(new FileWriter("TiemposTCP.csv",true));
+            PrintWriter writerRound = new PrintWriter(new FileWriter("TiemposRonda.csv",true));
             
             try {
                 playerID = in.readUTF();
                 round = in.readInt();
-
+                
+                TCPTime = in.readLong();
+                
+                if(TCPTime > 0){
+                    TCPTime = System.currentTimeMillis() - TCPTime;
+                    writerTCP.println(TCPTime);
+                }
+                    
                 System.out.println("=========================================");
                 System.out.println("ID:"+playerID);
                 System.out.println("Round: "+round);
@@ -57,6 +71,17 @@ public class ScoreManager extends Thread{
                     if(resp)
                         board.newRound();
                 }
+                
+                RoundTime = in.readLong();
+                
+                if(RoundTime > 0){
+                    RoundTime = System.currentTimeMillis() - RoundTime;
+                    writerRound.println(RoundTime);
+                }
+                
+                writerRound.close();
+                writerTCP.close();
+                
                 //board.printBoard();
                 System.out.println("=========================================");
                 

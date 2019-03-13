@@ -22,12 +22,12 @@ public class StressLauncher {
         TestClient c;
         long sleep;
         double p;
-        for (int i = 0; i < 200; i++) {
+        for (int i = 0; i < 50; i++) {
             if(i > 100){
-                sleep = 200;
+                sleep = 0;
                 
                 if(i >140)
-                    sleep = 500;
+                    sleep = 0;
                 try {
                     Thread.sleep(sleep);
                 } catch (InterruptedException ex) {
@@ -39,7 +39,7 @@ public class StressLauncher {
             p = Math.random();
             
             if(p > 0.6){
-                sleep = 800;
+                sleep = 0;
             }else{
                 sleep = 0;
             }
