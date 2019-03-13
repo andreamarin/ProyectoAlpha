@@ -50,7 +50,7 @@ public class GameServer {
             
             //tcp
             int tcpPort = 6780;
-            String tcpIP = "localhost";
+            String tcpIP = "148.205.133.50";
             
             //launch RMI service
             String path = System.getProperty("user.dir") + "/src/server/server.policy";
@@ -102,10 +102,10 @@ public class GameServer {
                     
                     // timeout
                     s = 0;
-                    while(s < 3 && ronda == board.getNumRonda()){
+                    while(s < 5 && ronda == board.getNumRonda()){
                         try {
                             s++;
-                            Thread.sleep(500);
+                            Thread.sleep(200);
                         } catch (InterruptedException ex) {
                             Logger.getLogger(GameServer.class.getName()).log(Level.SEVERE, null, ex);
                         }
