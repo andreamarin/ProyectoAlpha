@@ -72,7 +72,7 @@ public class GameGUI extends javax.swing.JFrame {
         if(((JPanel)panelNames.get(id)).getBackground() == moleColor)
             game.responde();
         else
-            JOptionPane.showMessageDialog(this, "La cagaste");
+            JOptionPane.showMessageDialog(this, "Fallaste");
     }
     
     public void changeScore(String newScore){
