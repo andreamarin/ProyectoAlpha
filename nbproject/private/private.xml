@@ -3,10 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Luis%20Landa/Documents/ITAM/SistemasDistribuidos/ProyectoAlpha/src/server/GameServer.java</file>
-            <file>file:/C:/Users/Luis%20Landa/Documents/ITAM/SistemasDistribuidos/ProyectoAlpha/src/tester/TestClient.java</file>
-            <file>file:/C:/Users/Luis%20Landa/Documents/ITAM/SistemasDistribuidos/ProyectoAlpha/src/server/ScoreManager.java</file>
-            <file>file:/C:/Users/Luis%20Landa/Documents/ITAM/SistemasDistribuidos/ProyectoAlpha/src/tester/StressLauncher.java</file>
+            <file>file:/C:/Users/sdist.ITAM/Desktop/ProyectoAlpha/src/interfaces/Connection.java</file>
+            <file>file:/C:/Users/sdist.ITAM/Desktop/ProyectoAlpha/src/client/GameGUI.java</file>
+            <file>file:/C:/Users/sdist.ITAM/Desktop/ProyectoAlpha/src/server/GameServer.java</file>
+            <file>file:/C:/Users/sdist.ITAM/Desktop/ProyectoAlpha/src/client/GameClient.java</file>
+            <file>file:/C:/Users/sdist.ITAM/Desktop/ProyectoAlpha/src/client/LoginGUI.java</file>
         </group>
     </open-files>
 </project-private>

@@ -101,7 +101,7 @@ public class LoginGUI extends javax.swing.JFrame {
         
         if(!user.equals("")){
             try {
-                Registry registry = LocateRegistry.getRegistry("localhost");
+                Registry registry = LocateRegistry.getRegistry("148.205.133.50");
                 Login log = (Login)registry.lookup("Login");
                 Connection con = log.conecta(user);
                 
