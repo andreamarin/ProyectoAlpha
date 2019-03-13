@@ -75,6 +75,16 @@ public class GameBoard {
 
     }
     
+    public String getScores(){
+        String res = "";
+        
+        for (Player player : players) {
+            res += player.getId() + "," + player.getHits() + ",";
+        }
+        
+        return res;
+    }
+    
     public Player getPlayer(String id){
         int index =  players.indexOf(new Player(id));
         Player res = null;

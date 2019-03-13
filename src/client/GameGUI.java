@@ -74,6 +74,10 @@ public class GameGUI extends javax.swing.JFrame {
         else
             JOptionPane.showMessageDialog(this, "La cagaste");
     }
+    
+    public void changeScore(String newScore){
+        score.setText(newScore);
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -503,7 +507,7 @@ public class GameGUI extends javax.swing.JFrame {
         jLabel2.setText("Score:");
 
         score.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
-        score.setText("5");
+        score.setText("0");
 
         salir.setText("Salir");
         salir.addActionListener(new java.awt.event.ActionListener() {

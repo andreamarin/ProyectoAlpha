@@ -16,13 +16,15 @@ public class Connection implements Serializable{
     private int multPort;
     private String tcpIP;
     private int tcpPort;
+    private int score;
 
-    public Connection(String playerID, String multIP, int multPort, String tcpIP, int tcpPort) {
+    public Connection(int score, String playerID, String multIP, int multPort, String tcpIP, int tcpPort) {
         this.playerID = playerID;
         this.multIP = multIP;
         this.multPort = multPort;
         this.tcpIP = tcpIP;
         this.tcpPort = tcpPort;
+        this.score = score;
     }
 
     public String getPlayerID() {
@@ -44,6 +46,8 @@ public class Connection implements Serializable{
     public int getTcpPort() {
         return tcpPort;
     }
-    
-    
+
+    public int getScore() {
+        return score;
+    }
 }

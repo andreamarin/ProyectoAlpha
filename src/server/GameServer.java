@@ -92,8 +92,13 @@ public class GameServer {
                     
                     ronda = board.newRound();
                     
-                    sendMsg(x+","+y+","+ronda + "," +time);
-                    System.out.println(x+","+y+","+ronda+","+time);
+                    //Versión estresamiento
+                    // sendMsg(x+","+y+","+ronda + "," +time);
+                    
+                    //Versión juego
+                    sendMsg(x+","+y+","+ronda+","+board.getScores());
+                    
+                    System.out.println(x+","+y+","+ronda);
                     
                     // timeout
                     s = 0;

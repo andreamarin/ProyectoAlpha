@@ -41,20 +41,21 @@ public class ScoreManager extends Thread{
             long TCPTime;
             long RoundTime;
             
-            PrintWriter writerTCP = new PrintWriter(new FileWriter("TiemposTCP.csv",true));
-            PrintWriter writerRound = new PrintWriter(new FileWriter("TiemposRonda.csv",true));
+            //PrintWriter writerTCP = new PrintWriter(new FileWriter("TiemposTCP.csv",true));
+            //PrintWriter writerRound = new PrintWriter(new FileWriter("TiemposRonda.csv",true));
             
             try {
                 playerID = in.readUTF();
                 round = in.readInt();
                 
+                /*
                 TCPTime = in.readLong();
                 
                 if(TCPTime > 0){
                     TCPTime = System.currentTimeMillis() - TCPTime;
                     writerTCP.println(TCPTime);
                 }
-                    
+                 */   
                 System.out.println("=========================================");
                 System.out.println("ID:"+playerID);
                 System.out.println("Round: "+round);
@@ -72,6 +73,7 @@ public class ScoreManager extends Thread{
                         board.newRound();
                 }
                 
+                /*
                 RoundTime = in.readLong();
                 
                 if(RoundTime > 0){
@@ -81,8 +83,8 @@ public class ScoreManager extends Thread{
                 
                 writerRound.close();
                 writerTCP.close();
+                */
                 
-                //board.printBoard();
                 System.out.println("=========================================");
                 
             } catch (IOException ex) {

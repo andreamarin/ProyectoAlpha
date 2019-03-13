@@ -111,6 +111,7 @@ public class LoginGUI extends javax.swing.JFrame {
                     GameGUI gui = new GameGUI();
                     gui.setVisible(true);
                     gui.beginGame(con.getMultIP(), con.getMultPort(), con.getTcpIP(), con.getTcpPort(), con.getPlayerID());
+                    gui.changeScore(con.getScore()+"");
                     this.setVisible(false);
                 }
                 

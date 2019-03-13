@@ -58,10 +58,6 @@ public class GameClient extends Thread{
             this.multSocket = new MulticastSocket(multPort);
             multSocket.joinGroup(group);
             
-            /*
-            
-            */
-            
             return true;
         } catch (UnknownHostException ex) {
             Logger.getLogger(GameClient.class.getName()).log(Level.SEVERE, null, ex);
@@ -115,14 +111,22 @@ public class GameClient extends Thread{
     public void escribeGUI(String mole){
         String[] resp = mole.split(",");
         String newPos;
+        int i = 3;
         
         System.out.println("Recibí: "+mole);
         
         if(resp.length == 1){
             gui.ganador(mole);
+            gui.changeScore("0");
         }else{
             newPos = "m"+resp[0]+""+resp[1];
             round = Integer.parseInt(resp[2]);
+            
+            while(i<resp.length && !resp[i].equals(ID)){
+                i++;
+            }
+            
+            gui.changeScore(resp[i+1]);
             
             gui.removeMole(pos);
             gui.setMole(newPos);
