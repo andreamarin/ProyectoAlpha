@@ -40,7 +40,7 @@ public class ScoreManager extends Thread{
             boolean resp;
             long RoundTime;
             
-            PrintWriter writerRound = new PrintWriter(new FileWriter("TiemposRonda20.csv",true));
+            PrintWriter writerRound = new PrintWriter(new FileWriter("TiemposRonda80.csv",true));
             
             try {
                 playerID = in.readUTF();

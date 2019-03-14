@@ -89,26 +89,19 @@ public class TestClient extends Thread{
     
     @Override
     public void run(){
-        PrintWriter writerAvg = null;
-        PrintWriter writerStdDev = null;
-        
+        PrintWriter writerErrores = null;
         try {
+            writerErrores = new PrintWriter(new FileWriter("Errores80.csv",true));
             byte[] buffer;
             DatagramPacket mole;
             double p;
             String[] res;
-            long UDPTime;
-            long TCPTime;
-            double avg;
-            double stdDev;
             
             for (int i = 0; i < roundLimit; i++) {
                 buffer = new byte[1000];
                 mole = new DatagramPacket(buffer, buffer.length);
                 //System.out.println("Esperando mensajes");
                 multSocket.receive(mole);
-                
-                //Thread.sleep(sleep);
                 
                 res = (new String(mole.getData(), 0, mole.getLength())).split(",");
                 
@@ -125,8 +118,6 @@ public class TestClient extends Thread{
                 }else{
                     round = Integer.parseInt(res[2]);
                 }
-                
-                TCPTime = System.currentTimeMillis();
                 
                 this.tcpSocket = new  Socket(tcpIP, tcpPort);
                 this.out = new DataOutputStream(tcpSocket.getOutputStream());
@@ -154,7 +145,10 @@ public class TestClient extends Thread{
             
         } catch (IOException ex) {
             Logger.getLogger(TestClient.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+            writerErrores.print("1,");
+        }finally{
+            writerErrores.close();
+        }
     }
   
     
