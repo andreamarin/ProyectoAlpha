@@ -91,7 +91,7 @@ public class TestClient extends Thread{
     public void run(){
         PrintWriter writerErrores = null;
         try {
-            writerErrores = new PrintWriter(new FileWriter("Errores80.csv",true));
+            writerErrores = new PrintWriter(new FileWriter("Errores100.csv",true));
             byte[] buffer;
             DatagramPacket mole;
             double p;
@@ -106,6 +106,7 @@ public class TestClient extends Thread{
                 res = (new String(mole.getData(), 0, mole.getLength())).split(",");
                 
                 if(res.length == 1){
+                    i--;
                     continue;
                 }
                 
