@@ -5,6 +5,9 @@
  */
 package tester;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,29 +25,21 @@ public class StressLauncher {
         TestClient c;
         long sleep;
         double p;
-        for (int i = 0; i < 50; i++) {
-            if(i > 100){
-                sleep = 0;
-                
-                if(i >140)
-                    sleep = 0;
-                try {
-                    Thread.sleep(sleep);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(StressLauncher.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            
+        
+        PrintWriter writerRound;
+        try {
+            writerRound = new PrintWriter(new FileWriter("TiemposRonda20.csv",true));
+            writerRound.println("");
+            writerRound.close();
+        } catch (IOException ex) {
+            Logger.getLogger(StressLauncher.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        for (int i = 0; i < 20; i++) {
             System.out.println("Cliente: "+i);
-            p = Math.random();
             
-            if(p > 0.6){
-                sleep = 0;
-            }else{
-                sleep = 0;
-            }
-            
-            c = new TestClient(20,sleep);
+            c = new TestClient(50);
             c.start();
         }
     }

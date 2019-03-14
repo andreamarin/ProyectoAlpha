@@ -50,7 +50,7 @@ public class GameServer {
             
             //tcp
             int tcpPort = 6780;
-            String tcpIP = "148.205.133.50";
+            String tcpIP = "localhost";
             
             //launch RMI service
             String path = System.getProperty("user.dir") + "/src/server/server.policy";
@@ -93,10 +93,10 @@ public class GameServer {
                     ronda = board.newRound();
                     
                     //Versión estresamiento
-                    // sendMsg(x+","+y+","+ronda + "," +time);
+                    sendMsg(x+","+y+","+ronda + "," +time);
                     
                     //Versión juego
-                    sendMsg(x+","+y+","+ronda+","+board.getScores());
+                    //sendMsg(x+","+y+","+ronda+","+board.getScores());
                     
                     System.out.println(x+","+y+","+ronda);
                     

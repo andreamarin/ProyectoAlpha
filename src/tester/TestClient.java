@@ -30,7 +30,7 @@ import java.util.logging.Logger;
  * @author andreamarin
  */
 public class TestClient extends Thread{
-    private long sleep;
+    private long sleep = 0;
     private static int ID = 0;
     private String playerID;
     private int roundLimit;
@@ -47,9 +47,8 @@ public class TestClient extends Thread{
     private int round;
     private String pos;
     
-    public TestClient(int roundLimit, long sleep){
+    public TestClient(int roundLimit){
         try {
-            this.sleep = sleep;
             this.roundLimit = roundLimit;
             
             Registry registry = LocateRegistry.getRegistry("localhost");
@@ -103,11 +102,6 @@ public class TestClient extends Thread{
             double avg;
             double stdDev;
             
-            writerAvg = new PrintWriter(new FileWriter("PromediosUDP.csv",true));
-            writerStdDev = new PrintWriter(new FileWriter("DesviacionesUDP.csv",true));
-            
-            long[] UDPTimes = new long[roundLimit];
-            
             for (int i = 0; i < roundLimit; i++) {
                 buffer = new byte[1000];
                 mole = new DatagramPacket(buffer, buffer.length);
@@ -118,16 +112,11 @@ public class TestClient extends Thread{
                 
                 res = (new String(mole.getData(), 0, mole.getLength())).split(",");
                 
-                long OGTime = Long.parseLong(res[3]);
-                
-                UDPTime = System.currentTimeMillis() - OGTime;
-                
-                UDPTimes[i] = UDPTime;
-                
-                
                 if(res.length == 1){
                     continue;
                 }
+                
+                long OGTime = Long.parseLong(res[3]);
                 
                 p = Math.random();
                 
@@ -144,7 +133,6 @@ public class TestClient extends Thread{
                 
                 out.writeUTF(playerID);
                 out.writeInt(round);
-                out.writeLong(TCPTime);
                 out.writeLong(OGTime);
                 
                 
@@ -161,40 +149,13 @@ public class TestClient extends Thread{
             out.writeUTF(playerID);
             out.writeInt(-1);
             out.writeLong(-1);
-            out.writeLong(-1);
             tcpSocket.close();
-            
-            avg = prom(UDPTimes);
-            stdDev = stdDev(UDPTimes,avg);
-            
-            writerAvg.println(avg);
-            writerStdDev.println(stdDev);
             
             
         } catch (IOException ex) {
             Logger.getLogger(TestClient.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-            writerAvg.close();
-            writerStdDev.close();
-        }  
+        } 
     }
-    
-    private double prom(long[] list){
-        double res = 0;
-        for (int i = 0; i < list.length; i++) {
-            res += list[i];
-        }
-        return res/list.length;
-    }
-    
-    private double stdDev(long[] list, double prom){
-        double res = 0;
-        
-        for (long l : list) {
-            res += Math.pow(l-prom, 2);
-        }
-        
-        return Math.sqrt(res/list.length);
-    }
+  
     
 }
