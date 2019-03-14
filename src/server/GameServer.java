@@ -79,14 +79,11 @@ public class GameServer {
             long time;
             
             while(true){
-                
+                time = System.currentTimeMillis();
                 if(board.isFin()){
                     sendMsg("Ganó: "+board.getGanador().getId());
                     board.clearGame();
                 }else{
-                    
-                    time = System.currentTimeMillis();
-                    
                     x = 1 + (int) (Math.random() * 4);
                     y = 1 + (int) (Math.random() * 5);
                     

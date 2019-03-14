@@ -16,6 +16,7 @@ public class GameBoard {
     private Player ganador;
     private ArrayList<Player> players;
     private final int MAX_HITS = 3;
+    private int numLogs = 0;
     
     public GameBoard(){
         numRonda = 0;
@@ -31,6 +32,14 @@ public class GameBoard {
             System.out.println(player.getId());
         }
         System.out.println("============================");
+    }
+    
+    public synchronized void increaseLog(){
+        numLogs ++;
+    }
+    
+    public int getLogs(){
+        return numLogs;
     }
     
     // GETTERS AND SETTERS

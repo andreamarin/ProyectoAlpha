@@ -91,13 +91,13 @@ public class TestClient extends Thread{
     public void run(){
         PrintWriter writerErrores = null;
         try {
-            writerErrores = new PrintWriter(new FileWriter("Errores80.csv",true));
+            writerErrores = new PrintWriter(new FileWriter("Errores20.csv",true));
             byte[] buffer;
             DatagramPacket mole;
             double p;
             String[] res;
-            
-            for (int i = 0; i < roundLimit; i++) {
+            int i = 0;
+            while(i < roundLimit){
                 buffer = new byte[1000];
                 mole = new DatagramPacket(buffer, buffer.length);
                 //System.out.println("Esperando mensajes");
@@ -126,6 +126,7 @@ public class TestClient extends Thread{
                 out.writeInt(round);
                 out.writeLong(OGTime);
                 
+                i++;
                 
                 this.tcpSocket.close();
                 
