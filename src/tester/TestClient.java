@@ -96,8 +96,8 @@ public class TestClient extends Thread{
             DatagramPacket mole;
             double p;
             String[] res;
-            
-            for (int i = 0; i < roundLimit; i++) {
+            int i = 0;
+            while(i < roundLimit){
                 buffer = new byte[1000];
                 mole = new DatagramPacket(buffer, buffer.length);
                 //System.out.println("Esperando mensajes");
@@ -127,6 +127,7 @@ public class TestClient extends Thread{
                 out.writeInt(round);
                 out.writeLong(OGTime);
                 
+                i++;
                 
                 this.tcpSocket.close();
                 

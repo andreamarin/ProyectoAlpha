@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package server;
+package tester;
 import interfaces.Login;
 import java.io.*;
 import java.net.*;
@@ -14,12 +14,14 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import server.GameBoard;
+import server.LoginServer;
 
 /**
  *
  * @author AMARINA
  */
-public class GameServer {
+public class TestGameServer {
     private static GameBoard board;
     
     // multicast settings
@@ -45,7 +47,7 @@ public class GameServer {
                 group = InetAddress.getByName(multIP);
                 s.joinGroup(group);
             } catch (IOException ex) {
-                Logger.getLogger(GameServer.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(TestGameServer.class.getName()).log(Level.SEVERE, null, ex);
             }
             
             //tcp
@@ -70,7 +72,7 @@ public class GameServer {
             registry.rebind("Login", stub);
             
             // start thread
-            TcpConnection tcpCon = new TcpConnection(tcpPort, board);
+            TestTcpConnection tcpCon = new TestTcpConnection(tcpPort, board);
             tcpCon.start();
             
             int x, y, s;
@@ -89,8 +91,8 @@ public class GameServer {
                     
                     ronda = board.newRound();
                     
-                    //Versión juego
-                    sendMsg(x+","+y+","+ronda+","+board.getScores());
+                    //Versión estresamiento
+                    sendMsg(x+","+y+","+ronda + "," +time);
                     
                     System.out.println(x+","+y+","+ronda);
                     
@@ -101,13 +103,13 @@ public class GameServer {
                             s++;
                             Thread.sleep(200);
                         } catch (InterruptedException ex) {
-                            Logger.getLogger(GameServer.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(TestGameServer.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
                 }
             }
         } catch (RemoteException ex) {
-            Logger.getLogger(GameServer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TestGameServer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -117,7 +119,7 @@ public class GameServer {
             DatagramPacket messageOut = new DatagramPacket(m, m.length, group, multPort);
             s.send(messageOut);
         } catch (IOException ex) {
-            Logger.getLogger(GameServer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TestGameServer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
