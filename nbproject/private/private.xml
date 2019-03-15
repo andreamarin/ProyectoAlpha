@@ -3,14 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/andreamarin/Desktop/ITAM/8semestre/ProyectosSD/ProyectoAlpha/src/server/LoginServer.java</file>
-            <file>file:/Users/andreamarin/Desktop/ITAM/8semestre/ProyectosSD/ProyectoAlpha/src/client/GameGUI.java</file>
-            <file>file:/Users/andreamarin/Desktop/ITAM/8semestre/ProyectosSD/ProyectoAlpha/src/client/LoginGUI.java</file>
             <file>file:/Users/andreamarin/Desktop/ITAM/8semestre/ProyectosSD/ProyectoAlpha/src/tester/StressLauncher.java</file>
             <file>file:/Users/andreamarin/Desktop/ITAM/8semestre/ProyectosSD/ProyectoAlpha/src/server/ScoreManager.java</file>
             <file>file:/Users/andreamarin/Desktop/ITAM/8semestre/ProyectosSD/ProyectoAlpha/src/tester/TestClient.java</file>
             <file>file:/Users/andreamarin/Desktop/ITAM/8semestre/ProyectosSD/ProyectoAlpha/src/server/GameServer.java</file>
             <file>file:/Users/andreamarin/Desktop/ITAM/8semestre/ProyectosSD/ProyectoAlpha/src/interfaces/Connection.java</file>
+            <file>file:/Users/andreamarin/Desktop/ITAM/8semestre/ProyectosSD/ProyectoAlpha/src/server/GameBoard.java</file>
         </group>
     </open-files>
 </project-private>
