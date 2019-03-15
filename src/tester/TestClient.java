@@ -91,7 +91,7 @@ public class TestClient extends Thread{
     public void run(){
         PrintWriter writerErrores = null;
         try {
-            writerErrores = new PrintWriter(new FileWriter("Errores20.csv",true));
+            writerErrores = new PrintWriter(new FileWriter("Errores100.csv",true));
             byte[] buffer;
             DatagramPacket mole;
             double p;

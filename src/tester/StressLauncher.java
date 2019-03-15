@@ -29,11 +29,11 @@ public class StressLauncher {
         PrintWriter writerRound;
         PrintWriter writerErrores;
         try {
-            writerRound = new PrintWriter(new FileWriter("TiemposRonda20.csv",true));
+            writerRound = new PrintWriter(new FileWriter("TiemposRonda100.csv",true));
             writerRound.println("");
             writerRound.close();
             
-            writerErrores = new PrintWriter(new FileWriter("Errores20.csv",true));
+            writerErrores = new PrintWriter(new FileWriter("Errores100.csv",true));
             writerErrores.println("");
             writerErrores.close();
         } catch (IOException ex) {
@@ -41,7 +41,7 @@ public class StressLauncher {
         }
         
         
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 100; i++) {
             System.out.println("Cliente: "+i);
             
             c = new TestClient(50);
