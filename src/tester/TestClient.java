@@ -106,6 +106,7 @@ public class TestClient extends Thread{
                 res = (new String(mole.getData(), 0, mole.getLength())).split(",");
                 
                 if(res.length == 1){
+                    i--;
                     continue;
                 }
                 
