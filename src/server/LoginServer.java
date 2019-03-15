@@ -45,7 +45,7 @@ public class LoginServer implements Login{
         
         String id = (p==null) ? null : p.getId();
         
-        int score = (p==null) ? null : p.getHits();
+        int score = (p==null) ? -1 : p.getHits();
         
         return new Connection(score, id, multIP, multPort, tcpIP, tcpPort);
     }
